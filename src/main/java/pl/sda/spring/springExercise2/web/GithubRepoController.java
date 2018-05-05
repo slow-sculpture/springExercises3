@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import pl.sda.spring.springExercise2.service.GithubRepoService;
+import pl.sda.spring.springExercise2.service.domain.CommitData;
+import pl.sda.spring.springExercise2.service.domain.GithubData;
 
 @Controller
 public class GithubRepoController {
@@ -20,9 +22,20 @@ public class GithubRepoController {
 
     //adnotacja sprawiajaca ze mamy GET
     @GetMapping("/getRepo/{user}/{repositoryName}")
-    public ResponseEntity<String> getRepositoryByUserAndRepo(@PathVariable("user") String user,
-                                                            @PathVariable("repositoryName") String repositoryName) {
-        String response = githubRepoService.getRepoByUserAndRepoName(user, repositoryName);
+    //public ResponseEntity<String> getRepositoryByUserAndRepo(@PathVariable("user") String user,
+    public ResponseEntity<GithubData> getRepositoryByUserAndRepo(
+            @PathVariable("user") String user,
+            @PathVariable("repositoryName") String repositoryName) {
+        //String response = githubRepoService.getRepoByUserAndRepoName(user, repositoryName);
+        GithubData response = githubRepoService.getRepoByUserAndRepoName(user, repositoryName);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/getRepo/{user}/{repositoryName}/commits")
+    public ResponseEntity<CommitData[]> getCommitsForRepositoryByUserAndRepo(
+            @PathVariable("user") String user,
+            @PathVariable("repositoryName") String repositoryName) {
+        CommitData[] response = githubRepoService.;
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
