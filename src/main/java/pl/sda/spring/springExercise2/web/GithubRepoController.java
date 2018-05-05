@@ -35,7 +35,7 @@ public class GithubRepoController {
     public ResponseEntity<CommitData[]> getCommitsForRepositoryByUserAndRepo(
             @PathVariable("user") String user,
             @PathVariable("repositoryName") String repositoryName) {
-        CommitData[] response = githubRepoService.;
+        CommitData[] response = githubRepoService.getCommitsByUserAndRepoName(user,repositoryName);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
