@@ -30,6 +30,9 @@ public class GithubRepoController {
             @PathVariable("repositoryName") String repositoryName) {
         //String response = githubRepoService.getRepoByUserAndRepoName(user, repositoryName);
         GithubData response = githubRepoService.getRepoByUserAndRepoName(user, repositoryName);
+        if(response.getError()!=null){
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

@@ -1,5 +1,6 @@
 package pl.sda.spring.springExercise2.service.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
@@ -12,4 +13,7 @@ public class GithubData {
     private String url;
     private String commits_url;
     private Integer watchers_count;
+    @JsonIgnore
+    private String error;
+
 }
