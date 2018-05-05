@@ -10,6 +10,8 @@ import pl.sda.spring.springExercise2.service.GithubRepoService;
 import pl.sda.spring.springExercise2.service.domain.CommitData;
 import pl.sda.spring.springExercise2.service.domain.GithubData;
 
+import java.util.List;
+
 @Controller
 public class GithubRepoController {
 
@@ -32,10 +34,10 @@ public class GithubRepoController {
     }
 
     @GetMapping("/getRepo/{user}/{repositoryName}/commits")
-    public ResponseEntity<CommitData[]> getCommitsForRepositoryByUserAndRepo(
+    public ResponseEntity<List<CommitData>> getCommitsForRepositoryByUserAndRepo(
             @PathVariable("user") String user,
             @PathVariable("repositoryName") String repositoryName) {
-        CommitData[] response = githubRepoService.getCommitsByUserAndRepoName(user,repositoryName);
+       List<CommitData> response = githubRepoService.getCommitsByUserAndRepoName(user,repositoryName);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
