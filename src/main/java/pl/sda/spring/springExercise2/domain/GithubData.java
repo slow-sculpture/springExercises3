@@ -2,11 +2,19 @@ package pl.sda.spring.springExercise2.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import org.springframework.stereotype.Component;
+
+import javax.persistence.*;
 
 @Data
-@Component
+@Entity
 public class GithubData {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
+    private Long id;
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "id")
     private OwnerData owner;
     private String full_name;
     private String description;

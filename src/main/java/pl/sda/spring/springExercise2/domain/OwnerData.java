@@ -1,12 +1,23 @@
 package pl.sda.spring.springExercise2.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import org.springframework.stereotype.Component;
+
+import javax.persistence.*;
 
 @Data
-@Component
+@Entity
 public class OwnerData {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
+    private Long id;
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "id")
+    private AuthorData authorData;
+
+
     private String login;
     //adnotacja zeby pole moglo sie inaczej nazywac niz dane z githuba (opcjonalne)
     @JsonProperty("site_admin")
