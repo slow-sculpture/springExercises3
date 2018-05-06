@@ -16,8 +16,6 @@ import pl.sda.spring.springExercise2.errorHandling.SDAException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -26,13 +24,14 @@ import static org.mockito.Mockito.when;
 
 
 // TESTY JEDNOSTOKOWE
+// junit assertj mockito
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class GitRepoServiceTest {
 
     private final static String url = "https://api.github.com/repos/{owner}/{repo}";
-    @Mock //wez wszystkie publiczne pola i zaimplementuje je tak zeby nic nie robily
+    @Mock //wez wszystkie publiczne pola i zaimplementuje je tak zeby nic nie robily (zwracaja null)
     private RestTemplate restTemplate;
     @InjectMocks //wszystkie mocki ww. definiujemy jako parametry konstruktora
     private GithubRepoService githubRepoService;
@@ -52,12 +51,16 @@ public class GitRepoServiceTest {
         //////when, any, eq - statyczna metoda mockito
         /////any() jakis
         ////eq() dokladnie ten - jesli wszystkie sa eq to nie musimy pisac wcale
+
+        //mockito
         when(restTemplate.getForObject(any(String.class), eq(GithubData.class),
                 eq("userName"), eq("repositoryName"))).thenReturn(githubData);
         // when
         GithubData underTest = githubRepoService.getRepoByUserAndRepoName("userName",
                 "repositoryName");
         // then
+
+        //assertJ
         assertThat(underTest.getFull_name()).isEqualTo(githubData.getFull_name());
     }
 

@@ -3,7 +3,7 @@ package pl.sda.spring.springExercise2.web;
 
 
 //  TEST INTEGRACYJNY
-
+// MockMVC - model (katalog domain) view (service) controller
 // w sygnaturze ITest
 
 import org.junit.Test;
