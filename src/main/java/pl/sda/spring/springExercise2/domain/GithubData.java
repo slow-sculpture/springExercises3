@@ -1,4 +1,4 @@
-package pl.sda.spring.springExercise2.service.domain;
+package pl.sda.spring.springExercise2.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;

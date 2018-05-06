@@ -1,13 +1,12 @@
 package pl.sda.spring.springExercise2.service;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-import pl.sda.spring.springExercise2.service.domain.CommitData;
-import pl.sda.spring.springExercise2.service.domain.GithubData;
-import pl.sda.spring.springExercise2.service.errorHandling.SDAException;
+import pl.sda.spring.springExercise2.domain.CommitData;
+import pl.sda.spring.springExercise2.domain.GithubData;
+import pl.sda.spring.springExercise2.errorHandling.SDAException;
 
 import java.util.Arrays;
 import java.util.List;
@@ -43,7 +42,7 @@ public class GithubRepoService {
             CommitData[] response = restTemplate.getForObject(
                 url+"/commits", CommitData[].class, userName, repositoryName);
         List<CommitData> commitDataList = Arrays.asList(response);
-        return commitDataList.subList(0,3);
+        return commitDataList.size() > 3 ? commitDataList.subList(0,3) : commitDataList;
         }catch (HttpClientErrorException ex){
             throw new SDAException(ex.getMessage());
         }

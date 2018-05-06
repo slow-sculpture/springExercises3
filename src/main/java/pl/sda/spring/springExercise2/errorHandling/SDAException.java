@@ -1,4 +1,4 @@
-package pl.sda.spring.springExercise2.service.errorHandling;
+package pl.sda.spring.springExercise2.errorHandling;
 
 public class SDAException extends RuntimeException {
     public SDAException(){

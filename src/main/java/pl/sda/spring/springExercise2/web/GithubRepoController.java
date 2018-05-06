@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import pl.sda.spring.springExercise2.service.GithubRepoService;
-import pl.sda.spring.springExercise2.service.domain.CommitData;
-import pl.sda.spring.springExercise2.service.domain.GithubData;
+import pl.sda.spring.springExercise2.domain.CommitData;
+import pl.sda.spring.springExercise2.domain.GithubData;
 
 import java.util.List;
 

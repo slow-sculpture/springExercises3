@@ -1,4 +1,4 @@
-package pl.sda.spring.springExercise2.service.domain;
+package pl.sda.spring.springExercise2.domain;
 
 import lombok.Data;
 import org.springframework.stereotype.Component;
