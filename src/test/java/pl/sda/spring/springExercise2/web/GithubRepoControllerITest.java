@@ -24,9 +24,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = SpringExercise2Application.class)
 @AutoConfigureMockMvc
 public class GithubRepoControllerITest {
-    private static String url = "/getRepo/{user}/{repositoryName}";
-    private static String user = "slow-sculpture";
-    private static String repo = "java-db";
+    private static final String URL = "/getRepo/{user}/{repositoryName}";
+    private static final String USER = "slow-sculpture";
+    private static final String REPO = "java-db";
 
     @Autowired
     private MockMvc mockMvc;
@@ -35,14 +35,22 @@ public class GithubRepoControllerITest {
     public void shouldReturnValidResponse() throws Exception{
         //perform - jakie chcemy miec zapytanie
         // wez (get), wypisz na konsole(print) i parametry spodziewanego wyniku (andExpect)
-        mockMvc.perform(get(url, user, repo)).andDo(print())
+        mockMvc.perform(get(URL, USER, REPO)).andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.owner.login").value(user));
+                .andExpect(jsonPath("$.owner.login").value(USER));
+    }
+    @Test
+    public void shoulThrowException4xx() throws Exception{
+        //perform - jakie chcemy miec zapytanie
+        // wez (get), wypisz na konsole(print) i parametry spodziewanego wyniku (andExpect)
+        mockMvc.perform(get(URL, "test_user", "test_repo")).andDo(print())
+                .andExpect(status().is4xxClientError());
+
     }
 
     @Test
     public void shouldReturnCommitsByUserAndRepo() throws Exception{
-        mockMvc.perform(get(url+"/commits",user,repo))
+        mockMvc.perform(get(URL+"/commits",USER,REPO))
         .andDo(print())
         .andExpect(status().isOk());
     }
