@@ -2,6 +2,7 @@ package pl.sda.spring.springExercise2.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.Entity;
@@ -19,5 +20,6 @@ public class AuthorData {
     private Long id;
     private String name;
     private String email;
-    private LocalDateTime date;
+    //private LocalDateTime date;
+    private DateTimeFormat.ISO date;
 }

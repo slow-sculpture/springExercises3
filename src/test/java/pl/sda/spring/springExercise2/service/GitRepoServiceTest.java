@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.HttpClientErrorException;
@@ -16,8 +17,10 @@ import pl.sda.spring.springExercise2.errorHandling.SDAException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
@@ -88,7 +91,7 @@ public class GitRepoServiceTest {
         AuthorData authorData = new AuthorData();
         authorData.setName("test_name");
         authorData.setEmail("test_email");
-        authorData.setDate(LocalDateTime.now());
+        authorData.setDate(DateTimeFormat.ISO.DATE_TIME);
 
         SingleCommit singleCommit = new SingleCommit();
         singleCommit.setAuthor(authorData);
@@ -123,24 +126,23 @@ public class GitRepoServiceTest {
         CommitData[] data = new CommitData[3];
         data[0] = new CommitData();
         data[1] = new CommitData();
-        data[1].setUrl("url_1");
+        data[1].setUrl(url1);
         data[2] = new CommitData();
-        data[2].setUrl("url_2");
+        data[2].setUrl(url2);
         when(restTemplate.getForObject(url + "/commits", CommitData[].class,
                 "testUser", "testRepo")).thenReturn(data);
         //when
-        List<CommitData> underTest = githubRepoService.getCommitsByUserAndRepoName("userName",
-                "repositoryName");
+        List<CommitData> underTest = githubRepoService.getCommitsByUserAndRepoName("testUser",
+                "testRepo");
 
         //then
         assertThat(underTest.size()).isEqualTo(data.length);
-        /*assertThat(underTest
+        assertThat(underTest
                 .stream()  //rozdzielenie wszystkich CommitData
                 .map(CommitData::getUrl) //pobranie kazdego CommitData
                 .filter(Objects::nonNull) //przefiltorwanie zeby null nie bralo
-                .collect(Collectors.toList())  //zebranie wszystkich elementow z powrotem do listy
-        ).containsExactlyInAnyOrder(url1,url2);
-               */
+                .collect(Collectors.toList()))  //zebranie wszystkich elementow z powrotem do listy
+                .containsExactlyInAnyOrder(url1,url2);
 
     }
 

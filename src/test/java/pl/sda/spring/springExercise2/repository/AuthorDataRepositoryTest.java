@@ -4,10 +4,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.test.context.junit4.SpringRunner;
 import pl.sda.spring.springExercise2.domain.AuthorData;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -22,7 +24,8 @@ public class AuthorDataRepositoryTest {
     public void shouldAddDataToRepository(){
         //given
         AuthorData authorData= new AuthorData();
-        authorData.setDate(LocalDateTime.now());
+        //authorData.setDate(LocalDateTime.now());
+        authorData.setDate(DateTimeFormat.ISO.DATE_TIME);
         authorData.setEmail("test@test.pl");
         authorData.setName("test");
         //when
