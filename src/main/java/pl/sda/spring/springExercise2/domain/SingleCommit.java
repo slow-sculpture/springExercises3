@@ -13,10 +13,10 @@ public class SingleCommit {
     @JsonIgnore
     private Long id;
 
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.ALL)
     @JoinColumn(referencedColumnName = "id")
     private AuthorData author;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(referencedColumnName = "id")
     private AuthorData committer;
     private String message;

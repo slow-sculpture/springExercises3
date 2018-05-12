@@ -13,8 +13,8 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import pl.sda.spring.springExercise2.domain.*;
 import pl.sda.spring.springExercise2.errorHandling.SDAException;
+import pl.sda.spring.springExercise2.repository.GithubDataRepository;
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -34,8 +34,13 @@ import static org.mockito.Mockito.when;
 public class GitRepoServiceTest {
 
     private final static String url = "https://api.github.com/repos/{owner}/{repo}";
+    private final static String USER_NAME = "username";
+    private final static String REPO_NAME = "repoName";
+    private final static String FULL_NAME = USER_NAME+'/'+REPO_NAME;
     @Mock //wez wszystkie publiczne pola i zaimplementuje je tak zeby nic nie robily (zwracaja null)
     private RestTemplate restTemplate;
+    @Mock
+    private GithubDataRepository githubDataRepository;
     @InjectMocks //wszystkie mocki ww. definiujemy jako parametry konstruktora
     private GithubRepoService githubRepoService;
 
@@ -47,7 +52,7 @@ public class GitRepoServiceTest {
         ownerData.setSiteAdmin(false);
 
         GithubData githubData = new GithubData();
-        githubData.setFull_name("test_name");
+        githubData.setFullName("test_name");
         githubData.setOwner(ownerData);
         githubData.setDescription("test_description");
 
@@ -58,13 +63,14 @@ public class GitRepoServiceTest {
         //mockito
         when(restTemplate.getForObject(any(String.class), eq(GithubData.class),
                 eq("userName"), eq("repositoryName"))).thenReturn(githubData);
+        when(githubDataRepository.existsByFullName(FULL_NAME)).thenReturn(false);
         // when
-        GithubData underTest = githubRepoService.getRepoByUserAndRepoName("userName",
-                "repositoryName");
+        GithubData underTest = githubRepoService.getRepoByUserAndRepoName(USER_NAME,
+                REPO_NAME);
         // then
 
         //assertJ
-        assertThat(underTest.getFull_name()).isEqualTo(githubData.getFull_name());
+        assertThat(underTest.getFullName()).isEqualTo(githubData.getFullName());
     }
 
     @Test

@@ -16,4 +16,6 @@ public class SpringExercise2Application {
         return new RestTemplate();
     }
 
+
+
 }

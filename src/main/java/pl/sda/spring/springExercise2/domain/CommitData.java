@@ -14,7 +14,7 @@ public class CommitData {
     private Long id;
 
     private String url;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(referencedColumnName = "id")
     protected SingleCommit commit;
 }

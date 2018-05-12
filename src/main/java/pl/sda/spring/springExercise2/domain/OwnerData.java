@@ -13,11 +13,11 @@ public class OwnerData {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
     private Long id;
-    @ManyToOne
+   /* @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(referencedColumnName = "id")
     private AuthorData authorData;
-
-
+*/
+    @Column(unique = true)
     private String login;
     //adnotacja zeby pole moglo sie inaczej nazywac niz dane z githuba (opcjonalne)
     @JsonProperty("site_admin")

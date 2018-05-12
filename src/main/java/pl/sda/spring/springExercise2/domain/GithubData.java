@@ -1,6 +1,7 @@
 package pl.sda.spring.springExercise2.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -13,14 +14,18 @@ public class GithubData {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
     private Long id;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(referencedColumnName = "id")
     private OwnerData owner;
-    private String full_name;
+    @JsonProperty("full_name")
+    @Column(unique = true)
+    private String fullName;
     private String description;
     private String url;
-    private String commits_url;
-    private Integer watchers_count;
+    @JsonProperty("commits_url")
+    private String commitsUrl;
+    @JsonProperty("watchers_count")
+    private Integer watchersCount;
     @JsonIgnore
     private String error;
 
