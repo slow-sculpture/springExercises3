@@ -7,7 +7,42 @@ create table author_data
 	name varchar(255) null
 )
 ;
+create table owner_data
+(
+  id bigint auto_increment
+    primary key,
+  login varchar(255) null,
+  site_admin bit null,
+  author_data_id bigint null,
+  constraint FKo0ajdwqcn8rncictbxnicclul
+  foreign key (author_data_id) references author_data (id)
+)
+;
 
+create index FKo0ajdwqcn8rncictbxnicclul
+  on owner_data (author_data_id)
+;
+create table single_commit
+(
+  id bigint auto_increment
+    primary key,
+  message varchar(255) null,
+  author_id bigint null,
+  committer_id bigint null,
+  constraint FK49fkhegs01i2pb4aupo7u91kv
+  foreign key (author_id) references author_data (id),
+  constraint FKfj70obof820xc4698qhvcccmj
+  foreign key (committer_id) references author_data (id)
+)
+;
+
+create index FK49fkhegs01i2pb4aupo7u91kv
+  on single_commit (author_id)
+;
+
+create index FKfj70obof820xc4698qhvcccmj
+  on single_commit (committer_id)
+;
 create table commit_data
 (
 	id bigint auto_increment
@@ -43,41 +78,7 @@ create index FK2uykgt8xg23xuryqskhnuv020
 	on github_data (owner_id)
 ;
 
-create table owner_data
-(
-	id bigint auto_increment
-		primary key,
-	login varchar(255) null,
-	site_admin bit null,
-	author_data_id bigint null,
-	constraint FKo0ajdwqcn8rncictbxnicclul
-		foreign key (author_data_id) references author_data (id)
-)
-;
 
-create index FKo0ajdwqcn8rncictbxnicclul
-	on owner_data (author_data_id)
-;
 
-create table single_commit
-(
-	id bigint auto_increment
-		primary key,
-	message varchar(255) null,
-	author_id bigint null,
-	committer_id bigint null,
-	constraint FK49fkhegs01i2pb4aupo7u91kv
-		foreign key (author_id) references author_data (id),
-	constraint FKfj70obof820xc4698qhvcccmj
-		foreign key (committer_id) references author_data (id)
-)
-;
 
-create index FK49fkhegs01i2pb4aupo7u91kv
-	on single_commit (author_id)
-;
-
-create index FKfj70obof820xc4698qhvcccmj
-	on single_commit (committer_id)
-;
 
