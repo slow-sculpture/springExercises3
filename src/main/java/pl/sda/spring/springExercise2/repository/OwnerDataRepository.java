@@ -6,4 +6,7 @@ import pl.sda.spring.springExercise2.domain.OwnerData;
 
 @Repository
 public interface OwnerDataRepository extends JpaRepository<OwnerData, Long>{
+    boolean existsByLogin(String login);
+
+    OwnerData getByLogin(String login);
 }

@@ -15,6 +15,7 @@ import pl.sda.spring.springExercise2.domain.*;
 import pl.sda.spring.springExercise2.errorHandling.SDAException;
 import pl.sda.spring.springExercise2.repository.GithubDataRepository;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -97,7 +98,7 @@ public class GitRepoServiceTest {
         AuthorData authorData = new AuthorData();
         authorData.setName("test_name");
         authorData.setEmail("test_email");
-        authorData.setDate(DateTimeFormat.ISO.DATE_TIME);
+        authorData.setDate(LocalDateTime.now());
 
         SingleCommit singleCommit = new SingleCommit();
         singleCommit.setAuthor(authorData);

@@ -5,6 +5,7 @@ import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -16,5 +17,5 @@ public class AuthorData {
     private String name;
     private String email;
     //private LocalDateTime date;
-    private DateTimeFormat.ISO date;
+    private LocalDateTime date;
 }
